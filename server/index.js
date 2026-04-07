@@ -13,8 +13,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = 5000;
-const MONGO_URI = 'mongodb://localhost:27017/placement-tracker';
+const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/placement-tracker';
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback_secret_monochrome_tracker';
 
 // MongoDB connection
