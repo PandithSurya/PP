@@ -14,12 +14,17 @@ app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/placement-tracker';
+const MONGO_URI = process.env.MONGO_URI;
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback_secret_monochrome_tracker';
 
 // MongoDB connection
+if (!MONGO_URI) {
+  console.error('❌ FATAL ERROR: MONGO_URI environment variable is not defined.');
+  process.exit(1);
+}
+
 mongoose.connect(MONGO_URI)
-  .then(() => console.log('✅ Connected to Local MongoDB'))
+  .then(() => console.log('✅ Connected to MongoDB'))
   .catch(err => console.error('❌ Connection error:', err));
 
 // --- Auth Routes ---
